@@ -24,3 +24,7 @@ Usage
 
     # Use the result data for something else
     result_data = searcher.listed
+
+License
+==
+This code is released under the BSD license.
