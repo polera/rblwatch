@@ -6,7 +6,6 @@ This is the code that provides the lookup functionality for [http://www.mxutils.
 Requirements
 ==
 pyDNS
-    easy_install pyDNS
 
 Author
 ==
