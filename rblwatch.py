@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 from dns.resolver import Resolver, NXDOMAIN, NoNameservers, Timeout
 from threading import Thread
 
@@ -166,5 +167,5 @@ if __name__ == "__main__":
 		print """Usage summary:
 
 rblwatch <ip address to lookup> """ 
-	except KeyboardInterrupt:
-		pass
+    except KeyboardInterrupt:
+	pass
