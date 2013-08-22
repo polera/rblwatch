@@ -1,13 +1,6 @@
-import DNS
-from threading import Thread, activeCount as active_count
-from time import ctime
-try:
-    import psyco
-    psyco.full()
-except ImportError:
-    pass
+from dns.resolver import Resolver, NXDOMAIN, NoNameservers, Timeout
 
-DNS.DiscoverNameServers()
+from threading import Thread
 
 RBLS = [
     'aspews.ext.sorbs.net',
@@ -95,26 +88,28 @@ RBLS = [
 
 
 class Lookup(Thread):
-    def __init__(self, host, dnslist, listed):
+    def __init__(self, host, dnslist, listed, resolver):
         Thread.__init__(self)
-        self.requester = DNS.Request()
         self.host = host
         self.listed = listed
         self.dnslist = dnslist
+        self.resolver = resolver
 
     def run(self):
         try:
-            host_record = self.requester.req(name=self.host, qtype="A").answers
+            host_record = self.resolver.query(self.host, "A")
             if len(host_record) > 0:
                 self.listed[self.dnslist]['LISTED'] = True
-                self.listed[self.dnslist]['HOST'] = host_record
-                text_record = self.requester.req(name=self.host,
-                                                 qtype="TXT").answers
+                self.listed[self.dnslist]['HOST'] = host_record[0].address
+                text_record = self.resolver.query(self.host, "TXT")
                 if len(text_record) > 0:
-                    text_record_data = text_record[0]['data'][0]
-                    self.listed[self.dnslist]['TEXT'] = text_record_data
+                    self.listed[self.dnslist]['TEXT'] = "\n".join(text_record[0].strings)
             self.listed[self.dnslist]['ERROR'] = False
-        except DNS.DNSError:
+        except NXDOMAIN:
+            self.listed[self.dnslist]['ERROR'] = True
+        except NoNameservers:
+            self.listed[self.dnslist]['ERROR'] = True
+        except Timeout:
             self.listed[self.dnslist]['ERROR'] = True
 
 
@@ -122,6 +117,9 @@ class RBLSearch(object):
     def __init__(self, lookup_host):
         self.lookup_host = lookup_host
         self._listed = None
+        self.resolver = Resolver()
+        self.resolver.timeout = 0.2
+        self.resolver.lifetime = 1.0
 
     def search(self):
         if self._listed is not None:
@@ -133,7 +131,7 @@ class RBLSearch(object):
             threads = []
             for LIST in RBLS:
                 self._listed[LIST] = {'LISTED': False}
-                query = Lookup("%s.%s" % (host, LIST), LIST, self._listed)
+                query = Lookup("%s.%s" % (host, LIST), LIST, self._listed, self.resolver)
                 threads.append(query)
                 query.start()
             for thread in threads:
@@ -148,21 +146,22 @@ class RBLSearch(object):
         for key in listed:
             if key == 'SEARCH_HOST':
                 continue
-            if not listed[key]['ERROR']:
+            if not listed[key].get('ERROR'):
                 if listed[key]['LISTED']:
                     print "Results for %s: %s" % (key, listed[key]['LISTED'])
                     print "  + Host information: %s" % \
-                          (listed[key]['HOST'][0]['name'])
+                          (listed[key]['HOST'][0])
                 if 'TEXT' in listed[key].keys():
                     print "    + Additional information: %s" % \
                           (listed[key]['TEXT'])
             else:
-                print "*** Error contacting %s ***" % key
+                #print "*** Error contacting %s ***" % key
+                pass
 
 if __name__ == "__main__":
     # Tests!
     try:
-        searcher = RBLSearch('74.125.93.109')
+        searcher = RBLSearch('60.208.16.205')
         searcher.print_results()
     except KeyboardInterrupt:
         pass
