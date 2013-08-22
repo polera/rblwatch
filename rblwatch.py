@@ -1,5 +1,7 @@
-from dns.resolver import Resolver, NXDOMAIN, NoNameservers, Timeout
+#!/usr/bin/env python
 
+import sys
+from dns.resolver import Resolver, NXDOMAIN, NoNameservers, Timeout
 from threading import Thread
 
 RBLS = [
@@ -157,7 +159,13 @@ class RBLSearch(object):
 if __name__ == "__main__":
     # Tests!
     try:
-        searcher = RBLSearch('60.208.16.205')
-        searcher.print_results()
+	if len(sys.argv) > 1:
+		print "Looking up: %s (please wait)" % sys.argv[1]
+	        searcher = RBLSearch(sys.argv[1])
+        	searcher.print_results()
+	else:
+		print """Usage summary:
+
+rblwatch <ip address to lookup> """ 
     except KeyboardInterrupt:
-        pass
+	pass
