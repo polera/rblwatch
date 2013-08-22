@@ -139,19 +139,19 @@ class RBLSearch(object):
 
     def print_results(self):
         listed = self.listed
-        print ""
-        print "--- DNSBL Report for %s ---" % listed['SEARCH_HOST']
+        print("")
+        print("--- DNSBL Report for %s ---" % listed['SEARCH_HOST'])
         for key in listed:
             if key == 'SEARCH_HOST':
                 continue
             if not listed[key].get('ERROR'):
                 if listed[key]['LISTED']:
-                    print "Results for %s: %s" % (key, listed[key]['LISTED'])
-                    print "  + Host information: %s" % \
-                          (listed[key]['HOST'])
+                    print("Results for %s: %s" % (key, listed[key]['LISTED']))
+                    print("  + Host information: %s" % \
+                          (listed[key]['HOST']))
                 if 'TEXT' in listed[key].keys():
-                    print "    + Additional information: %s" % \
-                          (listed[key]['TEXT'])
+                    print("    + Additional information: %s" % \
+                          (listed[key]['TEXT']))
             else:
                 #print "*** Error contacting %s ***" % key
                 pass
@@ -160,12 +160,12 @@ if __name__ == "__main__":
     # Tests!
     try:
         if len(sys.argv) > 1:
-            print "Looking up: %s (please wait)" % sys.argv[1]
+            print("Looking up: %s (please wait)" % sys.argv[1])
             searcher = RBLSearch(sys.argv[1])
             searcher.print_results()
         else:
-            print """Usage summary:
+            print("""Usage summary:
 
-rblwatch <ip address to lookup> """
+rblwatch <ip address to lookup> """)
     except KeyboardInterrupt:
         pass

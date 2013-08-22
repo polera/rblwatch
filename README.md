@@ -5,7 +5,11 @@ This is the code that provides the lookup functionality for [http://www.mxutils.
 
 Requirements
 ==
+Python 2.x, PyPy
 dnspython == 1.11.0
+
+Python3
+dnspython3 == 1.11.0
 
 Author
 ==
