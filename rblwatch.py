@@ -148,7 +148,7 @@ class RBLSearch(object):
                 if listed[key]['LISTED']:
                     print "Results for %s: %s" % (key, listed[key]['LISTED'])
                     print "  + Host information: %s" % \
-                          (listed[key]['HOST'][0])
+                          (listed[key]['HOST'])
                 if 'TEXT' in listed[key].keys():
                     print "    + Additional information: %s" % \
                           (listed[key]['TEXT'])
@@ -159,13 +159,13 @@ class RBLSearch(object):
 if __name__ == "__main__":
     # Tests!
     try:
-	if len(sys.argv) > 1:
-		print "Looking up: %s (please wait)" % sys.argv[1]
-	        searcher = RBLSearch(sys.argv[1])
-        	searcher.print_results()
-	else:
-		print """Usage summary:
+        if len(sys.argv) > 1:
+            print "Looking up: %s (please wait)" % sys.argv[1]
+            searcher = RBLSearch(sys.argv[1])
+            searcher.print_results()
+        else:
+            print """Usage summary:
 
-rblwatch <ip address to lookup> """ 
+rblwatch <ip address to lookup> """
     except KeyboardInterrupt:
-	pass
+        pass
