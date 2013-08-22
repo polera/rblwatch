@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import DNS
 from threading import Thread, activeCount as active_count
