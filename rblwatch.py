@@ -166,5 +166,5 @@ if __name__ == "__main__":
 		print """Usage summary:
 
 rblwatch <ip address to lookup> """ 
-   except KeyboardInterrupt:
-        pass
+	except KeyboardInterrupt:
+		pass
