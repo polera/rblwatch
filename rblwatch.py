@@ -105,11 +105,7 @@ class Lookup(Thread):
                 if len(text_record) > 0:
                     self.listed[self.dnslist]['TEXT'] = "\n".join(text_record[0].strings)
             self.listed[self.dnslist]['ERROR'] = False
-        except NXDOMAIN:
-            self.listed[self.dnslist]['ERROR'] = True
-        except NoNameservers:
-            self.listed[self.dnslist]['ERROR'] = True
-        except Timeout:
+        except (NXDOMAIN, NoNameservers, Timeout, NameError):
             self.listed[self.dnslist]['ERROR'] = True
 
 
