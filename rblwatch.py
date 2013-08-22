@@ -1,6 +1,7 @@
 import DNS
 from threading import Thread, activeCount as active_count
 from time import ctime
+import os, sys
 try:
     import psyco
     psyco.full()
@@ -162,7 +163,13 @@ class RBLSearch(object):
 if __name__ == "__main__":
     # Tests!
     try:
-        searcher = RBLSearch('74.125.93.109')
-        searcher.print_results()
+	if len(sys.argv) > 1:
+		print "Looking up: %s (please wait)" % sys.argv[1]
+	        searcher = RBLSearch(sys.argv[1])
+        	searcher.print_results()
+	else:
+		print """Usage summary:
+
+%s <ip address to lookup> """ % sys.argv[0]
     except KeyboardInterrupt:
         pass
