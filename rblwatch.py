@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 import DNS
 from threading import Thread, activeCount as active_count
 from time import ctime
@@ -170,6 +172,6 @@ if __name__ == "__main__":
 	else:
 		print """Usage summary:
 
-%s <ip address to lookup> """ % sys.argv[0]
+rblwatch <ip address to lookup> """ 
     except KeyboardInterrupt:
         pass
