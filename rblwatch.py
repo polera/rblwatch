@@ -107,8 +107,18 @@ class Lookup(Thread):
                 if len(text_record) > 0:
                     self.listed[self.dnslist]['TEXT'] = "\n".join(text_record[0].strings)
             self.listed[self.dnslist]['ERROR'] = False
-        except (NXDOMAIN, NoNameservers, Timeout, NameError):
+        except NXDOMAIN:
             self.listed[self.dnslist]['ERROR'] = True
+            self.listed[self.dnslist]['ERRORTYPE'] = NXDOMAIN
+        except NoNameservers:
+            self.listed[self.dnslist]['ERROR'] = True
+            self.listed[self.dnslist]['ERRORTYPE'] = NoNameservers
+        except Timeout:
+            self.listed[self.dnslist]['ERROR'] = True
+            self.listed[self.dnslist]['ERRORTYPE'] = Timeout
+        except NameError:
+            self.listed[self.dnslist]['ERROR'] = True
+            self.listed[self.dnslist]['ERRORTYPE'] = NameError
 
 
 class RBLSearch(object):
