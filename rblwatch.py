@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 import sys
+import socket
+import re
 from dns.resolver import Resolver, NXDOMAIN, NoNameservers, Timeout
 from threading import Thread
 
@@ -171,8 +173,19 @@ if __name__ == "__main__":
     try:
         if len(sys.argv) > 1:
             print("Looking up: %s (please wait)" % sys.argv[1])
-            searcher = RBLSearch(sys.argv[1])
-            searcher.print_results()
+            ip = sys.argv[1]
+            pat = re.compile("\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}")
+            is_ip_address = pat.match(ip)
+            if not is_ip_address:
+                try:
+                    ip = socket.gethostbyname(ip)
+                    print("Hostname %s resolved to ip %s" % (sys.argv[1],ip))
+                except socket.error:
+                    print("IP %s can't be resolved" % ip)
+                    ip = ""
+            if ip:
+                searcher = RBLSearch(ip)
+                searcher.print_results()
         else:
             print("""Usage summary:
 
