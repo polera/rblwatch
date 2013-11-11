@@ -179,7 +179,7 @@ if __name__ == "__main__":
             if not is_ip_address:
                 try:
                     ip = socket.gethostbyname(ip)
-                    print("Hostname %s resolved to ip %s" % (ip,sys.argv[1]))
+                    print("Hostname %s resolved to ip %s" % (sys.argv[1],ip))
                 except socket.error:
                     print("IP %s can't be resolved" % ip)
                     ip = ""
