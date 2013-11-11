@@ -176,17 +176,16 @@ if __name__ == "__main__":
             ip = sys.argv[1]
             pat = re.compile("\d{1,3}.\d{1,3}.\d{1,3}.\d{1,3}")
             is_ip_address = pat.match(ip)
-            if is_ip_address:
-                searcher = RBLSearch(ip) 
-            else:
+            if not is_ip_address:
                 try:
                     ip = socket.gethostbyname(ip)
                     print("Hostname %s resolved to ip %s" % (ip,sys.argv[1]))
                 except socket.error:
                     print("IP %s can't be resolved" % ip)
-		
-            searcher = RBLSearch(ip)
-            searcher.print_results()
+                    ip = ""
+            if ip:
+                searcher = RBLSearch(ip)
+                searcher.print_results()
         else:
             print("""Usage summary:
 
