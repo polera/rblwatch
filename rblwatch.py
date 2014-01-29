@@ -3,7 +3,7 @@
 import sys
 import socket
 import re
-from dns.resolver import Resolver, NXDOMAIN, NoNameservers, Timeout
+from dns.resolver import Resolver, NXDOMAIN, NoNameservers, Timeout, NoAnswer
 from threading import Thread
 
 RBLS = [
@@ -121,7 +121,9 @@ class Lookup(Thread):
         except NameError:
             self.listed[self.dnslist]['ERROR'] = True
             self.listed[self.dnslist]['ERRORTYPE'] = NameError
-
+        except NoAnswer:
+            self.listed[self.dnslist]['ERROR'] = True
+            self.listed[self.dnslist]['ERRORTYPE'] = NoAnswer
 
 class RBLSearch(object):
     def __init__(self, lookup_host):
