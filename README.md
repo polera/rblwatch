@@ -7,9 +7,11 @@ Requirements
 ==
 Python 2.x, PyPy
 dnspython == 1.11.0
+IPy==0.81
 
 Python3
 dnspython3 == 1.11.0
+IPy==0.81
 
 Author
 ==
