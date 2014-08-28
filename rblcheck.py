@@ -6,11 +6,25 @@ import socket
 
 try:
     hostname = socket.gethostname()
+    hostname = 'ip5b41be41.dynamic.kabel-deutschland.de'
     for response in socket.getaddrinfo(hostname, None, 0, 1):
         ip = response[4][0]
         searcher = RBLSearch(ip)
-        searcher.print_results()
+        listed = searcher.listed
+        for key in listed:
+            if key == 'SEARCH_HOST':
+                continue
+            if not listed[key].get('ERROR'):
+                if listed[key]['LISTED']:
+                    print("Results for %s: %s" % (key, listed[key]['LISTED']))
+                    print("  + Host information: %s" % \
+                          (listed[key]['HOST']))
+                if 'TEXT' in listed[key].keys():
+                    print("    + Additional information: %s" % \
+                          (listed[key]['TEXT']))
+            else:
+                pass
 except:
-    print("IP %s can't be resolved" % ip)
+    print("Hostname %s can't be resolved" % hostname)
     ip = ""
 
