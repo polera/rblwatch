@@ -6,7 +6,6 @@ import socket
 
 try:
     hostname = socket.gethostname()
-    hostname = 'ip5b41be41.dynamic.kabel-deutschland.de'
     for response in socket.getaddrinfo(hostname, None, 0, 1):
         ip = response[4][0]
         searcher = RBLSearch(ip)
