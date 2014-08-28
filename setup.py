@@ -2,7 +2,7 @@ from distutils.core import setup
 setup(
     name = 'rblwatch',
     packages = ['rblwatch'],
-    scripts = ['bin/rblcheck'],
+    scripts = ['bin/rblcheck', 'bin/rblwatch'],
     version = '0.1.0',
     description = 'RBL lookups with Python',
     author = 'James Polera',
