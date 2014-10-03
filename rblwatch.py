@@ -3,6 +3,7 @@
 import sys
 import socket
 import re
+from IPy import IP
 from dns.resolver import Resolver, NXDOMAIN, NoNameservers, Timeout, NoAnswer
 from threading import Thread
 
@@ -137,8 +138,12 @@ class RBLSearch(object):
         if self._listed is not None:
             pass
         else:
-            host = self.lookup_host.split(".")
-            host = ".".join(list(reversed(host)))
+            ip = IP(self.lookup_host)
+            host = ip.reverseName()
+            if ip.version() == 4:
+                host = re.sub('.in-addr.arpa.', '', host)
+            elif ip.version() == 6:
+                host = re.sub('.ip6.arpa.', '', host)
             self._listed = {'SEARCH_HOST': self.lookup_host}
             threads = []
             for LIST in RBLS:
