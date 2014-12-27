@@ -1,1 +1,2 @@
+v0.2.0, 2014-12-27 -- Remove tor.ahbl.org because no longer in service
 v0.1.0, 2014-08-28 -- Initial release with pip package
