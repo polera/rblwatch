@@ -25,7 +25,6 @@ RBLS = [
     'dnsbl-1.uceprotect.net',
     'dnsbl-2.uceprotect.net',
     'dnsbl-3.uceprotect.net',
-    'dnsbl.ahbl.org',
     'dnsbl.cyberlogic.net',
     'dnsbl.dronebl.org',
     'dnsbl.inps.de',
