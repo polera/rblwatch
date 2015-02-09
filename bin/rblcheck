@@ -5,7 +5,7 @@ from rblwatch.rblwatch import RBLSearch
 import socket
 
 try:
-    hostname = socket.gethostname()
+    hostname = socket.gethostname() + '.'
     for response in socket.getaddrinfo(hostname, None, 0, 1):
         ip = response[4][0]
         searcher = RBLSearch(ip)
