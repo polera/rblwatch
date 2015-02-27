@@ -17,7 +17,8 @@ Python3
 
 Author
 ==
-James Polera <james@uncryptic.com>
+- James Polera <james@uncryptic.com>
+- Thomas Merkel <tm@core.io>
 
 Usage
 ==

@@ -1,2 +1,6 @@
+# python
 .idea
 *.pyc
+# distutils
+dist/
+MANIFEST
