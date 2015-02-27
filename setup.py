@@ -11,8 +11,5 @@ setup(
     maintainer_email = 'tm@core.io',
     url = 'https://github.com/drscream/rblwatch',
     keywords = ['rbl', 'blacklist', 'mail'],
-    install_requires = [
-        'IPy == 0.81',
-        'dnspython == 1.11.1',
-    ],
+    install_requires = ['IPy', 'dnspython'],
 )
