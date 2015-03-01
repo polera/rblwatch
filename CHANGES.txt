@@ -1,0 +1,4 @@
+v0.2.2, 2015-02-09 -- Extend hostname with suffix dot for valid host checking
+v0.2.1, 2015-01-06 -- Remove additional ahbl lists that are no longer in service
+v0.2.0, 2014-12-27 -- Remove tor.ahbl.org because no longer in service
+v0.1.0, 2014-08-28 -- Initial release with pip package

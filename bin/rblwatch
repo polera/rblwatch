@@ -1,0 +1,36 @@
+#!/usr/bin/env python
+# vim:expandtab shiftwidth=4 softtabstop=4 tabstop=8
+
+from rblwatch import RBLSearch
+from IPy import IP
+import socket
+import sys
+
+try:
+    if len(sys.argv) > 1:
+        print("Looking up: %s (please wait)" % sys.argv[1])
+        param = sys.argv[1]
+        ips = set()
+
+        try:
+            # Is IP
+            ips.add(IP(param))
+        except ValueError:
+            # Is maybe an hostname
+            try:
+                for response in socket.getaddrinfo(param, None, 0, 1):
+                    ips.add(response[4][0])
+            except socket.error:
+                print("IP %s can't be resolved" % param)
+
+        # Output all information to stdout
+        for ip in ips:
+            searcher = RBLSearch(ip)
+            searcher.print_results()
+    else:
+        print("""Usage summary:
+
+rblwatch <ip address to lookup> """)
+except KeyboardInterrupt:
+    pass
+
