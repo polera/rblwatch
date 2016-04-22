@@ -1,1 +1,1 @@
-from rblwatch import RBLSearch
+from .rblwatch import RBLSearch
