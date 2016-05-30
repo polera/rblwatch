@@ -56,7 +56,6 @@ RBLS = [
     'proxy.bl.gweep.ca',
     'proxy.block.transip.nl',
     'psbl.surriel.com',
-    'rbl.interserver.net',
     'rdts.dnsbl.net.au',
     'relays.bl.gweep.ca',
     'relays.bl.kundenserver.de',

@@ -3,7 +3,7 @@ setup(
     name = 'rblwatch',
     packages = ['rblwatch'],
     scripts = ['bin/rblcheck', 'bin/rblwatch'],
-    version = '0.2.2',
+    version = '0.2.4',
     description = 'RBL lookups with Python',
     author = 'James Polera',
     author_email = 'james@uncryptic.com',
